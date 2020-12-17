@@ -1,0 +1,18 @@
+SELECT  A.CODPROJETO, A.CODTALHAO, 
+B.ID, B.dt_add, B.CHATALHAO,  B.HDOM, B.dap, B.alt_comercial, B.alt_total, B.catana, 
+C.id_arvore AS ID, C.tora AS TORA, C.circ AS CIRC, C.comp AS COMP, 'RECOMENDADO' AS TIPO
+FROM OPT_ARVORE b
+join SGIFLOR__CADTALHAO a on (A.CHATALHAO = B.CHATALHAO)
+JOIN OPT_RECOMENDADO C ON (C.id_arvore = B.id)
+--WHERE c.id_arvore = 150 
+
+UNION ALL
+
+SELECT  A.CODPROJETO, A.CODTALHAO, 
+B.ID, B.dt_add, B.CHATALHAO,  B.HDOM, B.dap, B.alt_comercial, B.alt_total, B.catana, 
+D.id_arvore AS ID, D.tora AS TORA, D.circ AS CIRC, D.comp AS COMP, 'EXECUTADO' AS TIPO
+FROM OPT_ARVORE b
+join SGIFLOR__CADTALHAO a on (A.CHATALHAO = B.CHATALHAO)
+JOIN OPT_RECOMENDADO C ON (C.id_arvore = B.id)
+JOIN OPT_EXECUTADO D ON ( STR(D.id_arvore)+'-'+STR(D.tora) = STR(c.id_arvore)+'-'+STR(c.tora) )
+--WHERE c.id_arvore = 150 
